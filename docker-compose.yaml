@@ -1,25 +1,25 @@
 version: '3.8'
 
 services:
-  sms-token-service:
+  sms-agent-service:
     image: python:3.11-slim
-    container_name: sms-token-service
-    working_dir: /app
+    container_name: sms-agent-service
+    working_dir: /sms_agent
     volumes:
       # 映射整个项目目录
-      - .:/app
+      - .:/sms_agent
     ports:
       # 使用 .env 中的 PORT 配置，默认 8000
       - "${PORT:-8000}:${PORT:-8000}"
     environment:
-      - PYTHONPATH=/app
+      - PYTHONPATH=/sms_agent
       - PYTHONUNBUFFERED=1
     env_file:
       - .env
     command: >
       sh -c "
         # 创建必要的目录
-        mkdir -p /app/logs /app/config &&
+        mkdir -p /sms_agent/logs /sms_agent/config &&
         echo 'Installing dependencies...' &&
         pip install --no-cache-dir -r requirements.txt &&
         echo 'Starting application on port ${PORT:-8000}...' &&
