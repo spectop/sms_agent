@@ -9,5 +9,5 @@ venv/
 .vscode/
 .idea/
 
-logs/
-config/
+/logs/
+/config/
