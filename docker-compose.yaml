@@ -26,3 +26,9 @@ services:
         python run.py
       "
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${PORT:-8000}${API_PREFIX:-/sms_agent}/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
